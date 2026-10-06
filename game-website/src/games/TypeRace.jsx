@@ -25,7 +25,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
   const [stage, setStage] = useState(1);
   const [times, setTimes] = useState({});
   const [elapsed, setElapsed] = useState(0);
-  const t0Ref = useRef(Date.now());
+  const t0Ref = useRef(null); // timer starts on first keystroke, not on turn start
   const inputRefs = useRef({});
 
   // Keep the active player's input focused so they can type immediately
@@ -51,7 +51,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
       setInputs({ 1: '', 2: '' });
       setFlash(null);
       setStage(nr % 2 === 0 ? 1 : 2); setTimes({}); setElapsed(0);
-      t0Ref.current = Date.now();
+      t0Ref.current = null;
     }
   };
 
@@ -69,6 +69,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
     if (isSolo && p === 2) return;
     if (!isSolo && p !== stage) return;
     setInputs((s) => ({ ...s, [p]: v }));
+    if (t0Ref.current == null && v.length > 0 && !isSolo) t0Ref.current = Date.now();
     if (v !== phrase) return;
     if (isSolo) { winRound(p); return; }
     const ms = Date.now() - t0Ref.current;
@@ -78,7 +79,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
       setStage(o);
       setInputs({ 1: '', 2: '' });
       setElapsed(0);
-      t0Ref.current = Date.now();
+      t0Ref.current = null;
     } else {
       const to = times[o];
       if (ms < to) winRound(p);
@@ -90,7 +91,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
   // 2P live timer
   useEffect(() => {
     if (isSolo || flash || winner || done) return;
-    const id = setInterval(() => setElapsed(Date.now() - t0Ref.current), 100);
+    const id = setInterval(() => setElapsed(t0Ref.current ? Date.now() - t0Ref.current : 0), 100);
     return () => clearInterval(id);
   }, [isSolo, flash, winner, done, round, stage]);
 
@@ -109,7 +110,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
     setInputs({ 1: '', 2: '' }); setScores({ 1: 0, 2: 0 });
     setFlash(null); setWinner(null); setShowModal(false);
     setStage(1); setTimes({}); setElapsed(0);
-    t0Ref.current = Date.now();
+    t0Ref.current = null;
   };
 
   const box = (p) => {

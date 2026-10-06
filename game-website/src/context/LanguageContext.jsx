@@ -462,7 +462,7 @@ const translations = {
     tyTitle: '打字競速',
     tyDesc: '睇住句子輪流鬥快打，計時快者贏，共 3 回合。',
     tyR1: '每回合雙方輪流打同一句句子',
-    tyR2: '要一模一樣（標點空格都要啱），打啱即停錶',
+    tyR2: '要一模一樣（標點空格都要啱），打第一個字起錶，打啱停錶',
     tyR3: '用時較短者贏該回合',
     tyR4: '3 回合後贏得多者獲勝',
 
@@ -986,7 +986,7 @@ const translations = {
     tyTitle: 'Typing Race',
     tyDesc: 'Take turns typing the sentence against the clock. 3 rounds.',
     tyR1: 'Each round both sides type the same sentence in turn',
-    tyR2: 'It must match exactly; the clock stops on a match',
+    tyR2: 'It must match exactly; the clock starts on your first keystroke and stops on a match',
     tyR3: 'Quicker time wins the round',
     tyR4: 'Most rounds after 3 wins the match',
 
