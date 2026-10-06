@@ -3,8 +3,8 @@ import { useLanguage } from '../context/LanguageContext';
 import Layout from '../components/Layout';
 import { ArtSnake, PlayIcon, TrophyIcon, DrawIcon, RestartIcon, HomeIcon } from '../components/icons';
 
-const W = 14;
-const H = 14;
+const W = 24;
+const H = 24;
 const TICK = 170;
 const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 
@@ -14,7 +14,7 @@ export default function TronDuel({ onBack, mode = '2p', names = null, hideEndMod
   const label = (p) => (names && names[p - 1]) || t(isSolo ? (p === 1 ? 'you' : 'computer') : (p === 1 ? 'player1' : 'player2'));
   const [running, setRunning] = useState(false);
   const [trails, setTrails] = useState({ 1: [], 2: [] });
-  const [heads, setHeads] = useState({ 1: [3, 7], 2: [10, 7] });
+  const [heads, setHeads] = useState({ 1: [4, 12], 2: [19, 12] });
   const [dirs, setDirs] = useState({ 1: 'right', 2: 'left' });
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -109,7 +109,7 @@ export default function TronDuel({ onBack, mode = '2p', names = null, hideEndMod
   const start = () => {
     rep.current = false;
     setTrails({ 1: [], 2: [] });
-    setHeads({ 1: [3, 7], 2: [10, 7] });
+    setHeads({ 1: [4, 12], 2: [19, 12] });
     setDirs({ 1: 'right', 2: 'left' });
     setWinner(null); setShowModal(false);
     setRunning(true);
@@ -150,7 +150,7 @@ export default function TronDuel({ onBack, mode = '2p', names = null, hideEndMod
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${W}, 1fr)`, gap: 1, padding: 6, borderRadius: 16, background: '#0b1020', border: '1px solid var(--line)', maxWidth: 420, margin: '0 auto', width: '100%' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${W}, 1fr)`, gap: 1, padding: 6, borderRadius: 16, background: '#0b1020', border: '1px solid var(--line)', maxWidth: 560, margin: '0 auto', width: '100%' }}>
           {Array.from({ length: H }, (_, y) =>
             Array.from({ length: W }, (_, x) => {
               const k = [x, y].toString();
