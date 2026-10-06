@@ -3,18 +3,27 @@ import { useLanguage } from '../context/LanguageContext';
 import Layout from '../components/Layout';
 import { ArtGuess, TrophyIcon, DrawIcon, RestartIcon, HomeIcon } from '../components/icons';
 
-const PHRASES = [
-  'hello world', 'react is fun', 'coding is cool', '香蕉牛奶很好喝',
-  '今晚食咩好', '我愛打機', 'game on', '快手有快手冇', 'ABCDE',
+const PHRASES_ZH = [
+  '香蕉牛奶很好喝', '今晚食咩好', '我愛打機', '快手有快手冇',
+  '雙人遊戲好好玩', '聽日去邊度玩', '早瞓早起身體好', '一齊嚟玩遊戲',
+  '香港美食真好味', '聽朝九點開會',
+];
+const PHRASES_EN = [
+  'hello world', 'react is fun', 'coding is cool', 'game on',
+  'type fast win fast', 'good luck have fun', 'practice daily', 'just do it',
 ];
 const ROUNDS = 3;
 
 export default function TypeRace({ onBack, mode = '2p', names = null, hideEndModal = false, onGameEnd = null }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const isSolo = mode === 'solo';
   const label = (p) => (names && names[p - 1]) || t(isSolo ? (p === 1 ? 'you' : 'computer') : (p === 1 ? 'player1' : 'player2'));
+  const pickPhrase = () => {
+    const pool = language === 'zh' ? PHRASES_ZH : PHRASES_EN;
+    return pool[Math.floor(Math.random() * pool.length)];
+  };
   const [round, setRound] = useState(0);
-  const [phrase, setPhrase] = useState(() => PHRASES[Math.floor(Math.random() * PHRASES.length)]);
+  const [phrase, setPhrase] = useState(() => pickPhrase());
   const [inputs, setInputs] = useState({ 1: '', 2: '' });
   const [scores, setScores] = useState({ 1: 0, 2: 0 });
   const [flash, setFlash] = useState(null);
@@ -47,7 +56,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
     if (nr >= ROUNDS) { setRound(nr); finish(ns); }
     else {
       setRound(nr);
-      setPhrase(PHRASES[Math.floor(Math.random() * PHRASES.length)]);
+      setPhrase(pickPhrase());
       setInputs({ 1: '', 2: '' });
       setFlash(null);
       setStage(nr % 2 === 0 ? 1 : 2); setTimes({}); setElapsed(0);
@@ -106,7 +115,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
   const restart = () => {
     rep.current = false;
     setRound(0);
-    setPhrase(PHRASES[Math.floor(Math.random() * PHRASES.length)]);
+    setPhrase(pickPhrase());
     setInputs({ 1: '', 2: '' }); setScores({ 1: 0, 2: 0 });
     setFlash(null); setWinner(null); setShowModal(false);
     setStage(1); setTimes({}); setElapsed(0);
