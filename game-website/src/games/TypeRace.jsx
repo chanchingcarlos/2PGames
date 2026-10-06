@@ -26,6 +26,12 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
   const [times, setTimes] = useState({});
   const [elapsed, setElapsed] = useState(0);
   const t0Ref = useRef(Date.now());
+  const inputRefs = useRef({});
+
+  // Keep the active player's input focused so they can type immediately
+  useEffect(() => {
+    if (!winner && !flash) inputRefs.current[isSolo ? 1 : stage]?.focus({ preventScroll: true });
+  }, [round, stage, isSolo, winner, flash]);
 
   const done = round >= ROUNDS;
 
@@ -117,6 +123,7 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
       <div style={{ flex: 1, padding: '0.8rem', borderRadius: 14, background: flash === p ? 'var(--accent-soft)' : 'var(--surface-2)', border: `2px solid ${flash === p ? 'var(--accent)' : ok ? 'var(--line)' : '#dc2626'}` }}>
         <div style={{ fontWeight: 800, marginBottom: 6 }}>{label(p)} · {scores[p]}{timeTxt}</div>
         <input
+          ref={(el) => { inputRefs.current[p] = el; }}
           value={v}
           onChange={(e) => type(p, e.target.value)}
           disabled={dis}

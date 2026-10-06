@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import Layout from '../components/Layout';
 import { ArtGuess, TrophyIcon, DrawIcon, RestartIcon, HomeIcon } from '../components/icons';
@@ -20,6 +20,15 @@ export default function HotCold({ onBack, mode = '2p', names = null, hideEndModa
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const rep = useRef(false);
+  const setRef = useRef(null);
+  const guessRef = useRef(null);
+
+  // Focus the relevant input whenever the phase changes
+  useEffect(() => {
+    if (winner) return;
+    if (phase === 'set') setRef.current?.focus({ preventScroll: true });
+    else if (phase === 'guess') guessRef.current?.focus({ preventScroll: true });
+  }, [phase, setter, winner]);
 
   const hintFor = (n) => {
     if (tries.length === 0) {
@@ -121,6 +130,8 @@ export default function HotCold({ onBack, mode = '2p', names = null, hideEndModa
             ) : (
               <form onSubmit={startGuessing} style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center' }}>
                 <input
+                  ref={setRef}
+                  autoFocus
                   type="password" inputMode="numeric"
                   value={secret}
                   onChange={(e) => setSecret(e.target.value.replace(/[^0-9]/g, '').slice(0, 2))}
@@ -135,6 +146,7 @@ export default function HotCold({ onBack, mode = '2p', names = null, hideEndModa
             <>
               <form onSubmit={doGuess} style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center' }}>
                 <input
+                  ref={guessRef}
                   type="number" min={1} max={MAXN}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}

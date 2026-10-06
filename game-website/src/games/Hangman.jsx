@@ -93,6 +93,7 @@ export default function Hangman({ onBack, mode = '2p', names = null, hideEndModa
             <div className="hm-setup-row">
               <input
                 type="password"
+                autoFocus
                 value={custom}
                 onChange={(e) => setCustom(e.target.value.toUpperCase())}
                 placeholder="A–Z · 2–14"

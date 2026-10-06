@@ -20,6 +20,7 @@ export default function NumberMemory({ onBack, mode = '2p', names = null, hideEn
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const rep = useRef(false);
+  const recallRef = useRef(null);
   const timer = useRef(null);
 
   const challenger = round % 2 === 0 ? 1 : 2;
@@ -27,6 +28,11 @@ export default function NumberMemory({ onBack, mode = '2p', names = null, hideEn
   const done = round >= ROUNDS;
 
   useEffect(() => () => clearInterval(timer.current), []);
+
+  // Focus the recall input as soon as the number hides
+  useEffect(() => {
+    if (phase === 'recall' && !winner) recallRef.current?.focus({ preventScroll: true });
+  }, [phase, round, winner]);
 
   const finish = (s) => {
     const w = s[1] === s[2] ? 'draw' : s[1] > s[2] ? 1 : 2;
@@ -123,6 +129,8 @@ export default function NumberMemory({ onBack, mode = '2p', names = null, hideEn
           {phase === 'recall' && !winner && (
             <form onSubmit={submit} style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center' }}>
               <input
+                ref={recallRef}
+                autoFocus
                 value={input}
                 onChange={(e) => setInput(e.target.value.replace(/[^0-9]/g, ''))}
                 placeholder={'?'.repeat(len)}

@@ -28,6 +28,12 @@ export default function GuessNumber({ onBack, mode = '2p', names = null, onGameE
   const [winner, setWinner] = useState(null);
   const [error, setError] = useState('');
   const boundsRef = useRef([MIN, MAX]);
+  const inputRef = useRef(null);
+
+  // Keep the input focused so players can type immediately each turn
+  useEffect(() => {
+    if (!winner && !(isSolo && turn === 2)) inputRef.current?.focus({ preventScroll: true });
+  }, [turn, winner, isSolo, secret]);
 
   const doGuess = (p, n) => {
     if (winner) return;
@@ -133,6 +139,8 @@ export default function GuessNumber({ onBack, mode = '2p', names = null, onGameE
 
         <form className="guess-form" onSubmit={submit}>
           <input
+            ref={inputRef}
+            autoFocus
             type="number"
             min={MIN}
             max={MAX}

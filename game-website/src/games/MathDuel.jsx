@@ -34,6 +34,12 @@ export default function MathDuel({ onBack, mode = '2p', names = null, hideEndMod
   const [times, setTimes] = useState({});
   const [elapsed, setElapsed] = useState(0);
   const t0Ref = useRef(Date.now());
+  const inputRefs = useRef({});
+
+  // Keep the active player's input focused so they can type immediately
+  useEffect(() => {
+    if (!winner && !flash) inputRefs.current[isSolo ? 1 : active]?.focus({ preventScroll: true });
+  }, [round, active, isSolo, winner, flash]);
 
   const end = (s) => {
     const w = s[1] === s[2] ? 'draw' : s[1] > s[2] ? 1 : 2;
@@ -121,6 +127,7 @@ export default function MathDuel({ onBack, mode = '2p', names = null, hideEndMod
       <form className={`md-box ${flash === p ? 'win' : ''}`} onSubmit={submit(p)} key={p}>
         <span className="md-name">{label(p)} · {scores[p]}{timeTxt}</span>
         <input
+          ref={(el) => { inputRefs.current[p] = el; }}
           value={inputs[p]}
           onChange={(e) => setInputs((v) => ({ ...v, [p]: e.target.value.replace(/[^0-9-]/g, '') }))}
           placeholder="?"

@@ -32,6 +32,7 @@ export default function WordleDuel({ onBack, mode = '2p', names = null, hideEndM
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const rep = useRef(false);
+  const inputRef = useRef(null);
 
   const limit = isSolo ? soloTries : MAX_TRIES;
   const turn = tries.length % 2 === 0 ? 1 : 2;
@@ -63,6 +64,7 @@ export default function WordleDuel({ onBack, mode = '2p', names = null, hideEndM
     setSecret(WORDS[Math.floor(Math.random() * WORDS.length)]);
     setTries([]); setInput(''); setErr('');
     setWinner(null); setShowModal(false);
+    setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 50);
   };
 
   const cellBg = (s) => s === 'hit' ? '#16a34a' : s === 'near' ? '#ca8a04' : 'var(--surface-2)';
@@ -121,6 +123,8 @@ export default function WordleDuel({ onBack, mode = '2p', names = null, hideEndM
           <>
             <form onSubmit={submit} style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center' }}>
               <input
+                ref={inputRef}
+                autoFocus
                 value={input}
                 onChange={(e) => setInput(e.target.value.replace(/[^a-zA-Z]/g, '').slice(0, 5))}
                 placeholder="abcde"
