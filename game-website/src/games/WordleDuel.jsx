@@ -67,6 +67,28 @@ export default function WordleDuel({ onBack, mode = '2p', names = null, hideEndM
 
   const cellBg = (s) => s === 'hit' ? '#16a34a' : s === 'near' ? '#ca8a04' : 'var(--surface-2)';
 
+  // On-screen keyboard: best status per letter across all guesses (hit > near > miss)
+  const KB_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
+  const keyRank = {};
+  tries.forEach((row) => {
+    row.g.split('').forEach((ch, i) => {
+      const r = row.fb[i] === 'hit' ? 3 : row.fb[i] === 'near' ? 2 : 1;
+      if ((keyRank[ch] || 0) < r) keyRank[ch] = r;
+    });
+  });
+  const keyStyle = (ch) => {
+    const r = keyRank[ch] || 0;
+    return {
+      background: r === 3 ? '#16a34a' : r === 2 ? '#ca8a04' : r === 1 ? '#6b7280' : 'var(--surface-2)',
+      color: r === 0 ? 'var(--text)' : '#fff',
+    };
+  };
+  const pressKey = (ch) => {
+    if (winner) return;
+    setErr('');
+    setInput((v) => (v + ch).replace(/[^a-z]/g, '').slice(0, 5));
+  };
+
   return (
     <Layout showBack onBack={onBack}>
       <div className="game-container">
@@ -96,16 +118,48 @@ export default function WordleDuel({ onBack, mode = '2p', names = null, hideEndM
         </div>
 
         {!winner && (
-          <form onSubmit={submit} style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center' }}>
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value.replace(/[^a-zA-Z]/g, '').slice(0, 5))}
-              placeholder="abcde"
-              maxLength={5}
-              style={{ padding: '0.7rem 1rem', borderRadius: 12, border: '1.5px solid var(--line-strong)', fontSize: '1.1rem', fontWeight: 700, width: 140, textAlign: 'center', textTransform: 'lowercase' }}
-            />
-            <button type="submit" className="btn btn-primary">OK</button>
-          </form>
+          <>
+            <form onSubmit={submit} style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center' }}>
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value.replace(/[^a-zA-Z]/g, '').slice(0, 5))}
+                placeholder="abcde"
+                maxLength={5}
+                style={{ padding: '0.7rem 1rem', borderRadius: 12, border: '1.5px solid var(--line-strong)', fontSize: '1.1rem', fontWeight: 700, width: 140, textAlign: 'center', textTransform: 'lowercase' }}
+              />
+              <button type="submit" className="btn btn-primary">OK</button>
+            </form>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }} aria-label="keyboard">
+              {KB_ROWS.map((row, ri) => (
+                <div key={ri} style={{ display: 'flex', gap: 5, justifyContent: 'center' }}>
+                  {ri === 2 && (
+                    <button
+                      type="button"
+                      onClick={() => setInput((v) => v.slice(0, -1))}
+                      style={{ minWidth: 44, height: 46, borderRadius: 8, border: '1px solid var(--line)', background: 'var(--surface-2)', color: 'var(--text)', fontSize: '1.1rem', fontWeight: 800, cursor: 'pointer' }}
+                      aria-label="backspace"
+                    >⌫</button>
+                  )}
+                  {row.split('').map((ch) => (
+                    <button
+                      key={ch}
+                      type="button"
+                      onClick={() => pressKey(ch)}
+                      style={{ minWidth: 0, width: 32, height: 46, borderRadius: 8, border: '1px solid var(--line)', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', cursor: 'pointer', ...keyStyle(ch) }}
+                    >{ch}</button>
+                  ))}
+                  {ri === 2 && (
+                    <button
+                      type="button"
+                      onClick={() => submit()}
+                      style={{ minWidth: 44, height: 46, borderRadius: 8, border: '1px solid var(--line)', background: 'var(--accent)', color: '#fff', fontSize: '1.1rem', fontWeight: 800, cursor: 'pointer' }}
+                      aria-label="enter"
+                    >⏎</button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
         )}
         {err && <p style={{ textAlign: 'center', color: '#dc2626', fontWeight: 700 }}>{err}</p>}
         {winner && <p style={{ textAlign: 'center', fontWeight: 800 }}>{t('hangmanAnswer')}: {secret.toUpperCase()}</p>}
