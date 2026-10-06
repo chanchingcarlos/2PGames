@@ -53,7 +53,7 @@ export default function ColorClash({ onBack, mode = '2p', names = null, hideEndM
   };
 
   const answer = (p, sayMatch) => {
-    if (winner || done || lock[p]) return;
+    if (winner || done || lock[p] || msg) return;
     if (isSolo && p === 2) return;
     if (sayMatch === q.match) {
       const ns = { ...scores, [p]: scores[p] + 1 };

@@ -21,6 +21,7 @@ export default function TapSprint({ onBack, mode = '2p', names = null, hideEndMo
   const rep = useRef(false);
   const scoresRef = useRef(scores);
   scoresRef.current = scores;
+  const scoredRef = useRef(false); // round already decided — ignore further taps
 
   useEffect(() => { phaseRef.current = phase; }, [phase]);
   useEffect(() => () => { timers.current.forEach(clearTimeout); }, []);
@@ -36,6 +37,9 @@ export default function TapSprint({ onBack, mode = '2p', names = null, hideEndMo
   }, [clearT, onGameEnd]);
 
   const scorePoint = useCallback((p) => {
+    if (scoredRef.current) return;
+    scoredRef.current = true;
+    clearT(); // cancel pending GO / computer timers so the decided round can't score again
     const ns = { ...scoresRef.current, [p]: scoresRef.current[p] + 1 };
     setScores(ns);
     setFlash(p);
@@ -48,9 +52,10 @@ export default function TapSprint({ onBack, mode = '2p', names = null, hideEndMo
       timers.current.push(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [round, finish]);
+  }, [round, finish, clearT]);
 
   const beginRound = useCallback(() => {
+    scoredRef.current = false;
     setPhase('wait');
     const d = 800 + Math.random() * 1800;
     const id = setTimeout(() => {
@@ -68,6 +73,7 @@ export default function TapSprint({ onBack, mode = '2p', names = null, hideEndMo
   const start = () => {
     clearT();
     rep.current = false;
+    scoredRef.current = false;
     setStarted(true); setRound(0); setScores({ 1: 0, 2: 0 });
     setFlash(null); setWinner(null); setShowModal(false);
     setTimeout(beginRound, 300);
