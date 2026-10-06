@@ -67,31 +67,6 @@ export default function RaceGame({ onBack, mode = '2p', names = null, onGameEnd 
   }, [onGameEnd]);
 
   // when both reacted, finish
-  useEffect(() => {
-    if (stateRef.current === 'active' && player1Time != null && player2Time != null) {
-      finishWith(player1Time, player2Time, null);
-    }
-  }, [player1Time, player2Time, finishWith]);
-
-  // safety timeout: if nobody presses in 5s after GO
-  useEffect(() => {
-    if (gameState === 'active') {
-      const id = setTimeout(() => {
-        finishWith(p1Ref.current, p2Ref.current, null);
-      }, 5000);
-      timersRef.current.push(id);
-      return () => clearTimeout(id);
-    }
-  }, [gameState, finishWith]);
-
-  // Solo: computer reacts with a human-like delay
-  useEffect(() => {
-    if (!isSolo || gameState !== 'active') return;
-    const id = setTimeout(() => press(2), 200 + Math.random() * 280);
-    timersRef.current.push(id);
-    return () => clearTimeout(id);
-  }, [gameState, isSolo, press]);
-
   const press = useCallback((player) => {
     const s = stateRef.current;
     if (s === 'countdown' || s === 'ready') {
@@ -118,10 +93,35 @@ export default function RaceGame({ onBack, mode = '2p', names = null, onGameEnd 
   }, [finishWith]);
 
   useEffect(() => {
+    if (stateRef.current === 'active' && player1Time != null && player2Time != null) {
+      finishWith(player1Time, player2Time, null);
+    }
+  }, [player1Time, player2Time, finishWith]);
+
+  // safety timeout: if nobody presses in 5s after GO
+  useEffect(() => {
+    if (gameState === 'active') {
+      const id = setTimeout(() => {
+        finishWith(p1Ref.current, p2Ref.current, null);
+      }, 5000);
+      timersRef.current.push(id);
+      return () => clearTimeout(id);
+    }
+  }, [gameState, finishWith]);
+
+  // Solo: computer reacts with a human-like delay
+  useEffect(() => {
+    if (!isSolo || gameState !== 'active') return;
+    const id = setTimeout(() => press(2), 200 + Math.random() * 280);
+    timersRef.current.push(id);
+    return () => clearTimeout(id);
+  }, [gameState, isSolo, press]);
+
+  useEffect(() => {
     const onKey = (e) => {
       if (e.repeat) return;
       const key = e.key.toLowerCase();
-      if (key === 'q' || key === 'q'.toUpperCase()) press(1);
+      if (key === 'q') press(1);
       else if (key === 'p' && !isSolo) press(2);
     };
     window.addEventListener('keydown', onKey);
