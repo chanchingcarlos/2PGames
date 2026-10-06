@@ -340,6 +340,192 @@ const translations = {
     snakeRule3: '撞牆或撞到自己即結束',
     snakeRule4: '單人食夠 12 個即贏；雙人輪流上場，分高者勝',
     snakeReady: '撳開始出發',
+
+    // Coin Flip
+    coinTitle: '猜硬幣',
+    coinDesc: '輪流估硬幣正反，估中得分，共 5 回合鬥多分。',
+    coinR1: '每回合由一方猜「正」或「反」',
+    coinR2: '猜中得 1 分，猜錯唔得分',
+    coinR3: '雙方輪流猜，先後次序會交替',
+    coinR4: '5 回合後總分高者獲勝',
+    coinH: '正',
+    coinT: '反',
+
+    // High Low
+    hlTitle: '高低牌',
+    hlDesc: '睇住一張牌，估下一張大定細，鬥眼光同運氣。',
+    hlR1: '畫面會顯示一張 1–13 的牌（A 最細、K 最大）',
+    hlR2: '輪流估下一張「大」或「細」',
+    hlR3: '估中得 1 分，打和唔得分',
+    hlR4: '10 回合後總分高者獲勝',
+    hlHigh: '大',
+    hlLow: '細',
+
+    // Lucky Seven
+    l7Title: '幸運七點',
+    l7Desc: '兩粒骰猜總和大細，估中 7 點有 bonus。',
+    l7R1: '每回合猜「大於 7」「小於 7」或「等於 7」',
+    l7R2: '擲兩粒骰計總和（2–12）',
+    l7R3: '猜中大/小得 1 分，猜中 7 點得 2 分',
+    l7R4: '10 回合後總分高者獲勝',
+
+    // Odd Even
+    oeTitle: '單雙拳',
+    oeDesc: '各出 1–5 隻手指，總和單數 P1 贏、雙數 P2 贏。',
+    oeR1: '玩家 1 係單數隊，玩家 2 係雙數隊',
+    oeR2: '每回合雙方各出 1–5（先出嗰個會隱藏）',
+    oeR3: '總和單數 P1 得 1 分，雙數 P2 得 1 分',
+    oeR4: '5 回合後分高者獲勝',
+    oeOdd: '單',
+    oeEven: '雙',
+
+    // Mini Bingo
+    bgTitle: '賓果連線',
+    bgDesc: '各自 3x3 號碼牌，叫號鬥快連成一線。',
+    bgR1: '雙方各有一張 1–9 隨機號碼牌',
+    bgR2: '按叫號逐個開出號碼並自動標記',
+    bgR3: '最先連成橫、直或斜一線者獲勝',
+    bgR4: '同一號碼令雙方同時連線則平手',
+    bgLeft: '剩餘',
+    bgCalled: '已叫',
+    bgCall: '叫號',
+
+    // Race to 21
+    r21Title: '搶廿一',
+    r21Desc: '由 0 開始輪流加 1–3，邊個嗌到 21 邊個贏。',
+    r21R1: '雙方輪流加 1、2 或 3',
+    r21R2: '總數唔可以超過 21',
+    r21R3: '嗌到 21 者即獲勝',
+    r21R4: '單人模式電腦識用必勝法，小心',
+
+    // Tap Sprint
+    tapTitle: '手速對決',
+    tapDesc: '紅燈轉綠燈即撳，鬥快 7 回合。P1 按 Q，P2 按 P。',
+    tapR1: '等紅燈轉綠燈先好撳，偷跑對方得分',
+    tapR2: '玩家 1 撳 Q / 左掣，玩家 2 撳 P / 右掣',
+    tapR3: '每回合快者得 1 分',
+    tapR4: '7 回合後分高者獲勝',
+
+    // Color Clash
+    stTitle: '顏色陷阱',
+    stDesc: '睇墨水色唔好睇個字，鬥快搶答 8 回合。',
+    stR1: '畫面顯示顏色字，墨水色可能同字義唔同',
+    stR2: '判斷「字義同墨水色係咪一樣」撳 ✓ 或 ✕',
+    stR3: '雙方搶答，答啱先得 1 分，答錯會被鎖',
+    stR4: '8 回合後分高者獲勝',
+    stAsk: '字義同顏色一樣嗎？',
+
+    // Number Memory
+    nmTitle: '數字記憶',
+    nmDesc: '睇幾秒數字，收起後憑記憶輸入返出嚟。',
+    nmR1: '每回合顯示一串數字，限時記住',
+    nmR2: '時間到收起，由挑戰者輸入返出嚟',
+    nmR3: '輸入啱晒得 1 分，錯唔得分',
+    nmR4: '6 回合後分高者獲勝',
+    nmDigits: '位數字',
+    nmShow: '開始記',
+    nmAns: '答案係',
+
+    // Wordle Duel
+    wdTitle: '單字對決',
+    wdDesc: '輪流估同一個 5 字母英文單字，綠黃灰提示。',
+    wdR1: '每次估一個 5 字母 A–Z 單字',
+    wdR2: '綠色代表字母位置啱，黃色代表有呢個字母但位置錯',
+    wdR3: '估中者即獲勝',
+    wdR4: '雙人 12 次、單人 6 次內估唔中就輸/和',
+ 
+    // Tron
+    trTitle: '電光單車',
+    trDesc: '留低光牆唔好撞，生存到最後者勝。',
+    trR1: '玩家 1 用 WASD，玩家 2 用方向鍵',
+    trR2: '單車自動向前，要轉彎避開光牆同邊界',
+    trR3: '撞牆、撞尾或對頭撞即輸，同時死則平手',
+    trR4: '單人模式同電腦鬥長命',
+
+    // Catch Fall
+    caTitle: '接蘋果',
+    caDesc: '左右郁個籃接蘋果，20 秒鬥多。',
+    caR1: '玩家 1 用 A/D，玩家 2 用 ←/→，手機用按鈕',
+    caR2: '雙方輪流上場 20 秒',
+    caR3: '接到一個得 1 分，跌咗唔扣分',
+    caR4: '分高者獲勝',
+
+    // Penalty Kick
+    peTitle: '十二碼',
+    peDesc: '輪流做射手同門將，估左中右鬥心理。',
+    peR1: '射手先選左、中、右（對方見唔到）',
+    peR2: '門將再選方向撲救',
+    peR3: '同方向即撲出，唔同即入球',
+    peR4: '各射 5 球，入球多者獲勝',
+
+    // Typing Race
+    tyTitle: '打字競速',
+    tyDesc: '睇住句子鬥快打，一模一樣先算，3 回合。',
+    tyR1: '雙方打同一句句子',
+    tyR2: '要一模一樣（標點空格都要啱）',
+    tyR3: '先打啱者贏該回合',
+    tyR4: '3 回合後贏得多者獲勝',
+
+    // Pig Dice
+    pigTitle: '貪心骰',
+    pigDesc: '擲到 1 就冇晒今回合，識收手先贏到 50 分。',
+    pigR1: '每回合可一直擲累積回合分數',
+    pigR2: '擲到 1 即冇晒今回合分數並換人',
+    pigR3: '按收手可將回合分數存入銀行',
+    pigR4: '銀行先到 50 分者獲勝',
+    pigTarget: '目標',
+    pigRoll: '擲',
+    pigHold: '收手',
+
+    // Slots
+    slTitle: '拉霸機',
+    slDesc: '拉霸鬥三連，輪流拉各 5 次鬥多分。',
+    slR1: '每回合拉一次，三個圖案隨機停低',
+    slR2: '三個一樣得 3 分，一對得 1 分',
+    slR3: '雙方輪流各拉 5 次',
+    slR4: '總分高者獲勝',
+    slSpin: '拉',
+
+    // Tower Stack
+    twTitle: '疊高塔',
+    twDesc: '睇準時機停低滑塊，疊 8 層鬥穩。',
+    twR1: '滑塊會左右郁，按停低鎖定一層',
+    twR2: '偏離中心愈多愈搖，差 3 格會冧塔',
+    twR3: '冧塔即直接輸',
+    twR4: '雙方都疊完，總偏差細者獲勝',
+    twLevel: '層',
+    twStop: '停',
+
+    // Hot Cold
+    hcTitle: '冷熱大追蹤',
+    hcDesc: '一方收埋 1–50 數字，一方靠冷熱提示追。',
+    hcR1: '出題者收埋一個 1–50 神秘數字',
+    hcR2: '估得愈近愈熱，愈遠愈凍',
+    hcR3: '雙方輪流做一次出題者',
+    hcR4: '用較少次數估中者獲勝',
+    hcHot: '熱',
+    hcWarm: '暖',
+    hcCold: '凍',
+    hcSame: '一樣',
+    hcSetSecret: '請收埋神秘數字',
+    hcSoloSet: '電腦已收埋數字，開始估！',
+    hcTries: '次',
+
+    // Balloon Pop
+    baTitle: '篤氣球',
+    baDesc: '氣球隨機彈出，20 秒鬥快篤。',
+    baR1: '氣球喺 12 格隨機彈出',
+    baR2: '篤中一個得 1 分',
+    baR3: '雙方輪流上場 20 秒',
+    baR4: '分高者獲勝',
+
+    // Maze Race
+    mzTitle: '迷宮競速',
+    mzDesc: '同一迷宮鬥快衝去綠色終點旗。',
+    mzR1: '玩家 1 用 WASD，玩家 2 用方向鍵',
+    mzR2: '邊個先到終點邊個贏',
+    mzR3: '撞牆唔郁得，要繞路走',
+    mzR4: '90 秒未分勝負，近終點者勝',
   },
   en: {
     // Common
@@ -678,6 +864,192 @@ const translations = {
     snakeRule3: 'Hitting a wall or yourself ends the run',
     snakeRule4: 'Solo: eat 12 to win; 2P: take turns, higher score wins',
     snakeReady: 'Press start to play',
+
+    // Coin Flip
+    coinTitle: 'Coin Flip',
+    coinDesc: 'Take turns calling heads or tails. 5 rounds, most points wins.',
+    coinR1: 'Each round one side calls “heads” or “tails”',
+    coinR2: 'Correct call scores 1 point, miss scores nothing',
+    coinR3: 'Sides alternate calling',
+    coinR4: 'Highest total after 5 rounds wins',
+    coinH: 'Heads',
+    coinT: 'Tails',
+
+    // High Low
+    hlTitle: 'High Low',
+    hlDesc: 'Look at one card, guess whether the next is higher or lower.',
+    hlR1: 'A card from 1–13 shows (A low, K high)',
+    hlR2: 'Take turns guessing the next card: higher or lower',
+    hlR3: 'Correct scores 1 point, ties score nothing',
+    hlR4: 'Highest total after 10 rounds wins',
+    hlHigh: 'High',
+    hlLow: 'Low',
+
+    // Lucky Seven
+    l7Title: 'Lucky Seven',
+    l7Desc: 'Two dice: bet over, under or exactly seven.',
+    l7R1: 'Each round bet “over 7”, “under 7” or “seven”',
+    l7R2: 'Roll two dice, total 2–12',
+    l7R3: 'Over/under scores 1, exact seven scores 2',
+    l7R4: 'Highest total after 10 rounds wins',
+
+    // Odd Even
+    oeTitle: 'Odd Even Fingers',
+    oeDesc: 'Both show 1–5 fingers. Odd total scores P1, even scores P2.',
+    oeR1: 'Player 1 is the odd team, Player 2 the even team',
+    oeR2: 'Each round both show 1–5 (first pick is hidden)',
+    oeR3: 'Odd total: P1 scores 1; even total: P2 scores 1',
+    oeR4: 'Highest score after 5 rounds wins',
+    oeOdd: 'Odd',
+    oeEven: 'Even',
+
+    // Mini Bingo
+    bgTitle: 'Mini Bingo',
+    bgDesc: 'Each side has a 3x3 number card. Draw numbers, race to complete a line.',
+    bgR1: 'Both sides get a random 1–9 number card',
+    bgR2: 'Draw numbers one by one, auto-marked',
+    bgR3: 'First to complete a horizontal, vertical or diagonal line wins',
+    bgR4: 'If one number completes both sides, it is a draw',
+    bgLeft: 'Left',
+    bgCalled: 'Called',
+    bgCall: 'Draw',
+
+    // Race to 21
+    r21Title: 'Race to 21',
+    r21Desc: 'Count from 0, add 1–3 each turn. Whoever says 21 wins.',
+    r21R1: 'Take turns adding 1, 2 or 3',
+    r21R2: 'The total may not pass 21',
+    r21R3: 'Whoever reaches exactly 21 wins',
+    r21R4: 'Solo computer knows the winning strategy — beware',
+
+    // Tap Sprint
+    tapTitle: 'Tap Sprint',
+    tapDesc: 'Tap when red turns green. 7 rounds. P1: Q, P2: P.',
+    tapR1: 'Wait for red to turn green — early taps foul',
+    tapR2: 'Player 1 taps Q / left button, Player 2 taps P / right button',
+    tapR3: 'Fastest each round scores 1 (fouls gift the point)',
+    tapR4: 'Highest score after 7 rounds wins',
+
+    // Color Clash
+    stTitle: 'Color Trap',
+    stDesc: 'Watch the ink, not the word. Buzz in over 8 rounds.',
+    stR1: 'A color word shows in possibly mismatched ink',
+    stR2: 'Judge whether meaning matches ink: ✓ or ✕',
+    stR3: 'Race to answer — correct first scores 1, wrong locks you out',
+    stR4: 'Highest score after 8 rounds wins',
+    stAsk: 'Does the meaning match the ink?',
+
+    // Number Memory
+    nmTitle: 'Number Memory',
+    nmDesc: 'Memorize digits on a timer, then type them back.',
+    nmR1: 'Each round shows a digit string to memorize',
+    nmR2: 'When it hides, the challenger types it back',
+    nmR3: 'Exact input scores 1 point, miss scores nothing',
+    nmR4: 'Highest score after 6 rounds wins',
+    nmDigits: 'digits',
+    nmShow: 'Show me',
+    nmAns: 'Answer',
+
+    // Wordle Duel
+    wdTitle: 'Word Duel',
+    wdDesc: 'Take turns guessing the same 5-letter English word.',
+    wdR1: 'Each guess is a 5-letter A–Z word',
+    wdR2: 'Green = right letter and spot, yellow = right letter wrong spot',
+    wdR3: 'Whoever guesses the word wins instantly',
+    wdR4: '2P: 12 combined misses is a draw; solo: 6 tries or lose',
+
+    // Tron
+    trTitle: 'Tron Bikes',
+    trDesc: 'Leave light walls behind. Do not crash — last rider alive wins.',
+    trR1: 'Player 1 uses WASD, Player 2 uses arrow keys',
+    trR2: 'Bikes move forward automatically; steer clear of walls',
+    trR3: 'Hitting a wall, trail or head-on loses (both die = draw)',
+    trR4: 'Solo: outlive the computer',
+
+    // Catch Fall
+    caTitle: 'Apple Catch',
+    caDesc: 'Slide the basket to catch apples. 20 seconds each.',
+    caR1: 'Player 1 uses A/D, Player 2 uses ←/→ (or buttons)',
+    caR2: 'Take turns playing 20 seconds each',
+    caR3: 'Each catch scores 1, drops cost nothing',
+    caR4: 'Higher score wins',
+
+    // Penalty Kick
+    peTitle: 'Penalty Kick',
+    peDesc: 'Alternate as shooter and keeper. Guess left, center or right.',
+    peR1: 'The shooter picks left/center/right first (hidden)',
+    peR2: 'The keeper then picks a side to save',
+    peR3: 'Same side = saved, different = goal',
+    peR4: '5 kicks each, most goals wins',
+
+    // Typing Race
+    tyTitle: 'Typing Race',
+    tyDesc: 'Type the sentence exactly. Fastest over 3 rounds wins.',
+    tyR1: 'Both sides type the same sentence',
+    tyR2: 'It must match exactly, spaces and punctuation included',
+    tyR3: 'First exact match wins the round',
+    tyR4: 'Most rounds after 3 wins the match',
+
+    // Pig Dice
+    pigTitle: 'Greedy Dice',
+    pigDesc: 'Rolling a 1 wipes the turn. Bank smart — first to 50 wins.',
+    pigR1: 'Keep rolling to grow the turn total',
+    pigR2: 'Rolling a 1 wipes the turn total and passes play',
+    pigR3: 'Hold to bank the turn total',
+    pigR4: 'First bank total to reach 50 wins',
+    pigTarget: 'Target',
+    pigRoll: 'Roll',
+    pigHold: 'Hold',
+
+    // Slots
+    slTitle: 'Slot Machine',
+    slDesc: 'Pull for triples. Alternate 5 pulls each.',
+    slR1: 'Each pull stops three random symbols',
+    slR2: 'Triple scores 3, a pair scores 1',
+    slR3: 'Alternate 5 pulls each',
+    slR4: 'Higher total wins',
+    slSpin: 'Pull',
+
+    // Tower Stack
+    twTitle: 'Tower Stack',
+    twDesc: 'Stop the slider at the right moment. Stack 8 levels.',
+    twR1: 'The slider oscillates — press stop to lock a level',
+    twR2: 'Further from center wobbles more; missing by 3 collapses',
+    twR3: 'A collapse loses immediately',
+    twR4: 'If both finish, the smaller total wobble wins',
+    twLevel: 'Level',
+    twStop: 'Stop',
+
+    // Hot Cold
+    hcTitle: 'Hot Cold Hunt',
+    hcDesc: 'One side hides a 1–50 number, the other hunts with hot/cold clues.',
+    hcR1: 'The setter hides a mystery number from 1–50',
+    hcR2: 'Closer guesses run hot, further guesses run cold',
+    hcR3: 'Both sides take one turn as setter',
+    hcR4: 'Fewest guesses to find it wins',
+    hcHot: 'Hot',
+    hcWarm: 'Warm',
+    hcCold: 'Cold',
+    hcSame: 'Same',
+    hcSetSecret: 'Setter: hide a secret number',
+    hcSoloSet: 'Computer hid a number — start guessing!',
+    hcTries: 'tries',
+
+    // Balloon Pop
+    baTitle: 'Balloon Pop',
+    baDesc: 'Balloons pop up at random. 20 seconds each, most pops wins.',
+    baR1: 'A balloon pops in one of 12 cells',
+    baR2: 'Each pop scores 1 point',
+    baR3: 'Take turns playing 20 seconds each',
+    baR4: 'Higher score wins',
+
+    // Maze Race
+    mzTitle: 'Maze Race',
+    mzDesc: 'Same maze, race to the green finish flag.',
+    mzR1: 'Player 1 uses WASD, Player 2 uses arrow keys',
+    mzR2: 'First to reach the finish wins',
+    mzR3: 'Walls block you — find a way around',
+    mzR4: 'After 90 seconds, closer to the flag wins',
   }
 };
 

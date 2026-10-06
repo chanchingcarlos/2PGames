@@ -62,6 +62,26 @@ const GAMES = [
   { id: 'math', Art: ArtMath, titleKey: 'math', descKey: 'mathDesc', tag: 'BRAIN' },
   { id: 'simon', Art: ArtSimon, titleKey: 'simon', descKey: 'simonDesc', tag: 'MEMORY' },
   { id: 'snake', Art: ArtSnake, titleKey: 'snake', descKey: 'snakeDesc', tag: 'ACTION' },
+  { id: 'coin', Art: ArtClash, titleKey: 'coinTitle', descKey: 'coinDesc', tag: 'LUCK' },
+  { id: 'highlow', Art: ArtBlackjack, titleKey: 'hlTitle', descKey: 'hlDesc', tag: 'CARD' },
+  { id: 'lucky7', titleKey: 'l7Title', descKey: 'l7Desc', tag: 'LUCK', dice: true },
+  { id: 'oddeven', Art: ArtMath, titleKey: 'oeTitle', descKey: 'oeDesc', tag: 'PARTY' },
+  { id: 'bingo', Art: ArtDotsBoxes, titleKey: 'bgTitle', descKey: 'bgDesc', tag: 'LUCK' },
+  { id: 'race21', Art: ArtMath, titleKey: 'r21Title', descKey: 'r21Desc', tag: 'BRAIN' },
+  { id: 'tap', Art: ArtRace, titleKey: 'tapTitle', descKey: 'tapDesc', tag: 'REACTION' },
+  { id: 'stroop', Art: ArtSimon, titleKey: 'stTitle', descKey: 'stDesc', tag: 'BRAIN' },
+  { id: 'nummem', Art: ArtMemory, titleKey: 'nmTitle', descKey: 'nmDesc', tag: 'MEMORY' },
+  { id: 'wordle', Art: ArtSos, titleKey: 'wdTitle', descKey: 'wdDesc', tag: 'WORD' },
+  { id: 'tron', Art: ArtSnake, titleKey: 'trTitle', descKey: 'trDesc', tag: 'ACTION' },
+  { id: 'catch', Art: ArtMole, titleKey: 'caTitle', descKey: 'caDesc', tag: 'ACTION' },
+  { id: 'penalty', Art: ArtPong, titleKey: 'peTitle', descKey: 'peDesc', tag: 'SPORT' },
+  { id: 'typer', Art: ArtGuess, titleKey: 'tyTitle', descKey: 'tyDesc', tag: 'BRAIN' },
+  { id: 'pig', titleKey: 'pigTitle', descKey: 'pigDesc', tag: 'LUCK', dice: true },
+  { id: 'slots', Art: ArtClash, titleKey: 'slTitle', descKey: 'slDesc', tag: 'LUCK' },
+  { id: 'tower', Art: ArtNim, titleKey: 'twTitle', descKey: 'twDesc', tag: 'ACTION' },
+  { id: 'hotcold', Art: ArtGuess, titleKey: 'hcTitle', descKey: 'hcDesc', tag: 'GUESS' },
+  { id: 'balloon', Art: ArtMole, titleKey: 'baTitle', descKey: 'baDesc', tag: 'ACTION' },
+  { id: 'maze', Art: ArtBattle, titleKey: 'mzTitle', descKey: 'mzDesc', tag: 'ACTION' },
 ];
 
 const RULES = {
@@ -90,6 +110,26 @@ const RULES = {
   math: { titleKey: 'mathTitle', rules: ['mathRule1', 'mathRule2', 'mathRule3', 'mathRule4'] },
   simon: { titleKey: 'simonTitle', rules: ['simonRule1', 'simonRule2', 'simonRule3', 'simonRule4'] },
   snake: { titleKey: 'snakeTitle', rules: ['snakeRule1', 'snakeRule2', 'snakeRule3', 'snakeRule4'] },
+  coin: { titleKey: 'coinTitle', rules: ['coinR1', 'coinR2', 'coinR3', 'coinR4'] },
+  highlow: { titleKey: 'hlTitle', rules: ['hlR1', 'hlR2', 'hlR3', 'hlR4'] },
+  lucky7: { titleKey: 'l7Title', rules: ['l7R1', 'l7R2', 'l7R3', 'l7R4'] },
+  oddeven: { titleKey: 'oeTitle', rules: ['oeR1', 'oeR2', 'oeR3', 'oeR4'] },
+  bingo: { titleKey: 'bgTitle', rules: ['bgR1', 'bgR2', 'bgR3', 'bgR4'] },
+  race21: { titleKey: 'r21Title', rules: ['r21R1', 'r21R2', 'r21R3', 'r21R4'] },
+  tap: { titleKey: 'tapTitle', rules: ['tapR1', 'tapR2', 'tapR3', 'tapR4'] },
+  stroop: { titleKey: 'stTitle', rules: ['stR1', 'stR2', 'stR3', 'stR4'] },
+  nummem: { titleKey: 'nmTitle', rules: ['nmR1', 'nmR2', 'nmR3', 'nmR4'] },
+  wordle: { titleKey: 'wdTitle', rules: ['wdR1', 'wdR2', 'wdR3', 'wdR4'] },
+  tron: { titleKey: 'trTitle', rules: ['trR1', 'trR2', 'trR3', 'trR4'] },
+  catch: { titleKey: 'caTitle', rules: ['caR1', 'caR2', 'caR3', 'caR4'] },
+  penalty: { titleKey: 'peTitle', rules: ['peR1', 'peR2', 'peR3', 'peR4'] },
+  typer: { titleKey: 'tyTitle', rules: ['tyR1', 'tyR2', 'tyR3', 'tyR4'] },
+  pig: { titleKey: 'pigTitle', rules: ['pigR1', 'pigR2', 'pigR3', 'pigR4'] },
+  slots: { titleKey: 'slTitle', rules: ['slR1', 'slR2', 'slR3', 'slR4'] },
+  tower: { titleKey: 'twTitle', rules: ['twR1', 'twR2', 'twR3', 'twR4'] },
+  hotcold: { titleKey: 'hcTitle', rules: ['hcR1', 'hcR2', 'hcR3', 'hcR4'] },
+  balloon: { titleKey: 'baTitle', rules: ['baR1', 'baR2', 'baR3', 'baR4'] },
+  maze: { titleKey: 'mzTitle', rules: ['mzR1', 'mzR2', 'mzR3', 'mzR4'] },
 };
 
 function GameArt({ game, size = 32 }) {
@@ -181,8 +221,8 @@ export default function Menu({ onStartGame, onStartShowdown, initialTab = 'duo' 
           </h1>
           <p className="hero-subtitle">
             {language === 'zh'
-              ? '廿五款遊戲，隨開即玩。唔使安裝，唔使登入。'
-              : 'Twenty-five games, ready instantly. No installs, no sign-ups.'}
+              ? '四十五款遊戲，隨開即玩。唔使安裝，唔使登入。'
+              : 'Forty-five games, ready instantly. No installs, no sign-ups.'}
           </p>
           <div className="mode-tabs" role="tablist">
             {['duo', 'solo', 'showdown'].map((m) => (
@@ -198,7 +238,7 @@ export default function Menu({ onStartGame, onStartShowdown, initialTab = 'duo' 
             ))}
           </div>
           <div className="hero-stats">
-            <span className="hero-stat"><b>25</b> {language === 'zh' ? '款遊戲' : 'games'}</span>
+            <span className="hero-stat"><b>45</b> {language === 'zh' ? '款遊戲' : 'games'}</span>
             <span className="hero-stat"><b>2P</b> {language === 'zh' ? '同機對戰' : 'same screen'}</span>
           </div>
         </section>
