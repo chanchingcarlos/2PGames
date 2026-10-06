@@ -99,6 +99,26 @@ export default function ColorClash({ onBack, mode = '2p', names = null, hideEndM
 
   const word = language === 'zh' ? COLORS[q.wi].zh : COLORS[q.wi].en;
 
+  // Keyboard race: P1 Q=✓/W=✕, P2 I=✓/O=✕ (mouse alone can't race)
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.repeat) return;
+      const k = e.key.toLowerCase();
+      if (k === 'q') answer(1, true);
+      else if (k === 'w') answer(1, false);
+      else if (k === 'i' && !isSolo) answer(2, true);
+      else if (k === 'o' && !isSolo) answer(2, false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
+  const kbd = {
+    display: 'inline-block', minWidth: 20, padding: '0.05rem 0.35rem',
+    borderRadius: 6, border: '1px solid var(--line-strong)',
+    background: 'var(--surface-solid)', fontWeight: 800,
+  };
+
   const panel = (p) => (
     <div style={{ flex: 1, textAlign: 'center', padding: '0.8rem', borderRadius: 16, background: 'var(--surface-2)', border: '1px solid var(--line)', opacity: lock[p] ? 0.5 : 1 }}>
       <div style={{ fontWeight: 800, marginBottom: 6 }}>{label(p)} · {scores[p]}</div>
@@ -106,6 +126,11 @@ export default function ColorClash({ onBack, mode = '2p', names = null, hideEndM
         <button className="btn btn-primary" style={{ padding: '0.5rem 0.9rem' }} disabled={!!winner || lock[p] || !!msg || (isSolo && p === 2)} onClick={() => answer(p, true)}>✓</button>
         <button className="btn btn-secondary" style={{ padding: '0.5rem 0.9rem' }} disabled={!!winner || lock[p] || !!msg || (isSolo && p === 2)} onClick={() => answer(p, false)}>✕</button>
       </div>
+      {(p === 1 || !isSolo) && (
+        <div style={{ marginTop: 6, color: 'var(--muted)', fontSize: '0.78rem', fontWeight: 700 }}>
+          {p === 1 ? (<><span style={kbd}>Q</span> ✓ · <span style={kbd}>W</span> ✕</>) : (<><span style={kbd}>I</span> ✓ · <span style={kbd}>O</span> ✕</>)}
+        </div>
+      )}
     </div>
   );
 
