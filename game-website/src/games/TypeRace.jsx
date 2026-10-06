@@ -21,6 +21,11 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const rep = useRef(false);
+  // 2P time-trial: players type the same phrase in turn against the clock
+  const [stage, setStage] = useState(1);
+  const [times, setTimes] = useState({});
+  const [elapsed, setElapsed] = useState(0);
+  const t0Ref = useRef(Date.now());
 
   const done = round >= ROUNDS;
 
@@ -30,29 +35,58 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
     if (!rep.current) { rep.current = true; onGameEnd?.(w); }
   };
 
+  const other = (x) => (x === 1 ? 2 : 1);
+
+  const newRound = (nr, ns) => {
+    if (nr >= ROUNDS) { setRound(nr); finish(ns); }
+    else {
+      setRound(nr);
+      setPhrase(PHRASES[Math.floor(Math.random() * PHRASES.length)]);
+      setInputs({ 1: '', 2: '' });
+      setFlash(null);
+      setStage(nr % 2 === 0 ? 1 : 2); setTimes({}); setElapsed(0);
+      t0Ref.current = Date.now();
+    }
+  };
+
   const winRound = (p) => {
     if (flash || winner || done) return;
-    const ns = { ...scores, [p]: scores[p] + 1 };
+    const ns = p === 'draw' ? { ...scores } : { ...scores, [p]: scores[p] + 1 };
     setScores(ns);
     setFlash(p);
     const nr = round + 1;
-    setTimeout(() => {
-      if (nr >= ROUNDS) { setRound(nr); finish(ns); }
-      else {
-        setRound(nr);
-        setPhrase(PHRASES[Math.floor(Math.random() * PHRASES.length)]);
-        setInputs({ 1: '', 2: '' });
-        setFlash(null);
-      }
-    }, 1000);
+    setTimeout(() => newRound(nr, ns), 1000);
   };
 
   const type = (p, v) => {
     if (flash || winner || done) return;
     if (isSolo && p === 2) return;
+    if (!isSolo && p !== stage) return;
     setInputs((s) => ({ ...s, [p]: v }));
-    if (v === phrase) winRound(p);
+    if (v !== phrase) return;
+    if (isSolo) { winRound(p); return; }
+    const ms = Date.now() - t0Ref.current;
+    const o = other(p);
+    if (times[o] == null) {
+      setTimes({ [p]: ms });
+      setStage(o);
+      setInputs({ 1: '', 2: '' });
+      setElapsed(0);
+      t0Ref.current = Date.now();
+    } else {
+      const to = times[o];
+      if (ms < to) winRound(p);
+      else if (ms > to) winRound(o);
+      else winRound('draw');
+    }
   };
+
+  // 2P live timer
+  useEffect(() => {
+    if (isSolo || flash || winner || done) return;
+    const id = setInterval(() => setElapsed(Date.now() - t0Ref.current), 100);
+    return () => clearInterval(id);
+  }, [isSolo, flash, winner, done, round, stage]);
 
   // Solo: computer finishes after delay
   useEffect(() => {
@@ -68,18 +102,24 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
     setPhrase(PHRASES[Math.floor(Math.random() * PHRASES.length)]);
     setInputs({ 1: '', 2: '' }); setScores({ 1: 0, 2: 0 });
     setFlash(null); setWinner(null); setShowModal(false);
+    setStage(1); setTimes({}); setElapsed(0);
+    t0Ref.current = Date.now();
   };
 
   const box = (p) => {
     const v = inputs[p];
     const ok = phrase.startsWith(v);
+    const dis = !!flash || !!winner || (isSolo ? p === 2 : p !== stage);
+    const timeTxt = isSolo ? '' : times[p] != null
+      ? ` · ${(times[p] / 1000).toFixed(1)}s`
+      : p === stage && !flash ? ` · ${(elapsed / 1000).toFixed(1)}s` : '';
     return (
       <div style={{ flex: 1, padding: '0.8rem', borderRadius: 14, background: flash === p ? 'var(--accent-soft)' : 'var(--surface-2)', border: `2px solid ${flash === p ? 'var(--accent)' : ok ? 'var(--line)' : '#dc2626'}` }}>
-        <div style={{ fontWeight: 800, marginBottom: 6 }}>{label(p)} · {scores[p]}</div>
+        <div style={{ fontWeight: 800, marginBottom: 6 }}>{label(p)} · {scores[p]}{timeTxt}</div>
         <input
           value={v}
           onChange={(e) => type(p, e.target.value)}
-          disabled={!!flash || !!winner || (isSolo && p === 2)}
+          disabled={dis}
           autoCapitalize="off"
           autoCorrect="off"
           style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: 10, border: '1.5px solid var(--line-strong)', fontSize: '1rem', fontFamily: 'inherit' }}
@@ -94,13 +134,13 @@ export default function TypeRace({ onBack, mode = '2p', names = null, hideEndMod
         <div className="game-header">
           <h1 className="game-title"><span className="title-mark"><ArtGuess size={20} /></span>{t('tyTitle')}</h1>
           <div className="game-status">
-            <span className="status-item current-player">{t('round')} {Math.min(round + 1, ROUNDS)}/{ROUNDS} · {scores[1]} : {scores[2]}</span>
+            <span className="status-item current-player">{t('round')} {Math.min(round + 1, ROUNDS)}/{ROUNDS} · {scores[1]} : {scores[2]}{!isSolo && !winner && ` · ${label(stage)}`}</span>
           </div>
         </div>
 
         <div style={{ textAlign: 'center', padding: '1.2rem', borderRadius: 20, background: 'var(--surface)', border: '1px solid var(--line)' }}>
           <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>{phrase}</div>
-          {flash && <div style={{ marginTop: 6, fontWeight: 800 }}>{label(flash)} +1</div>}
+          {flash && <div style={{ marginTop: 6, fontWeight: 800 }}>{flash === 'draw' ? t('draw') : `${label(flash)} +1`}</div>}
         </div>
 
         <div style={{ display: 'flex', gap: '0.8rem' }}>

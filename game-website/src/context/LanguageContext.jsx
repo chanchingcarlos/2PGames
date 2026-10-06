@@ -315,11 +315,11 @@ const translations = {
     // Math Duel
     math: '數學對決',
     mathTitle: '數學對決',
-    mathDesc: '加減乘快問快答鬥手速，共 5 題，先答中者得分。',
-    mathRule1: '每題雙方答同一條數學題，共 5 回合',
-    mathRule2: '雙人模式先答中者贏得該回合',
-    mathRule3: '單人模式要快過電腦作答',
-    mathRule4: '5 回合後總分高者獲勝',
+    mathDesc: '加減乘快問快答，輪流限時作答鬥快，共 5 回合。',
+    mathRule1: '每回合雙方輪流作答，各答一條唔同的數學題',
+    mathRule2: '答中即停錶，用時較短者贏得該回合',
+    mathRule3: '答錯唔扣分，清空輸入再答過',
+    mathRule4: '5 回合後總分高者獲勝（單人模式要快過電腦）',
     // Simon
     simon: '霓虹記憶',
     simonTitle: '霓虹記憶',
@@ -460,10 +460,10 @@ const translations = {
 
     // Typing Race
     tyTitle: '打字競速',
-    tyDesc: '睇住句子鬥快打，一模一樣先算，3 回合。',
-    tyR1: '雙方打同一句句子',
-    tyR2: '要一模一樣（標點空格都要啱）',
-    tyR3: '先打啱者贏該回合',
+    tyDesc: '睇住句子輪流鬥快打，計時快者贏，共 3 回合。',
+    tyR1: '每回合雙方輪流打同一句句子',
+    tyR2: '要一模一樣（標點空格都要啱），打啱即停錶',
+    tyR3: '用時較短者贏該回合',
     tyR4: '3 回合後贏得多者獲勝',
 
     // Pig Dice
@@ -839,11 +839,11 @@ const translations = {
     // Math Duel
     math: 'Math Duel',
     mathTitle: 'Math Duel',
-    mathDesc: 'Fast-fire arithmetic over 5 rounds. First correct answer scores.',
-    mathRule1: 'Both sides answer the same question each round, 5 rounds total',
-    mathRule2: '2P: first correct answer wins the round',
-    mathRule3: 'Solo: answer before the computer does',
-    mathRule4: 'Highest total after 5 rounds wins',
+    mathDesc: 'Fast-fire arithmetic time trial over 5 rounds. Quicker correct answer scores.',
+    mathRule1: 'Each round both sides answer their own question in turn',
+    mathRule2: 'The clock stops on a correct answer; quicker wins the round',
+    mathRule3: 'Wrong answers clear the input — no penalty',
+    mathRule4: 'Highest total after 5 rounds wins (solo: beat the computer)',
     // Simon
     simon: 'Neon Memory',
     simonTitle: 'Neon Memory',
@@ -984,10 +984,10 @@ const translations = {
 
     // Typing Race
     tyTitle: 'Typing Race',
-    tyDesc: 'Type the sentence exactly. Fastest over 3 rounds wins.',
-    tyR1: 'Both sides type the same sentence',
-    tyR2: 'It must match exactly, spaces and punctuation included',
-    tyR3: 'First exact match wins the round',
+    tyDesc: 'Take turns typing the sentence against the clock. 3 rounds.',
+    tyR1: 'Each round both sides type the same sentence in turn',
+    tyR2: 'It must match exactly; the clock stops on a match',
+    tyR3: 'Quicker time wins the round',
     tyR4: 'Most rounds after 3 wins the match',
 
     // Pig Dice
